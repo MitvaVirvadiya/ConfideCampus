@@ -15,8 +15,8 @@ export async function POST(request: Request) {
 
         if(existingUserVerifiedByUsername){
             return Response.json(
-            {
-                success: false,
+                {
+                    success: false,
                     message: "Username is already taken"
                 }, {status: 400}
             )
