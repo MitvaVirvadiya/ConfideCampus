@@ -30,25 +30,25 @@ const verifyCodePage = () => {
     const onSubmit = async (data: z.infer<typeof verifySchema>) => {
         setIsChecking(true)
         try {
-            const response = await axios.post('api/verify-user', {
+            const response = await axios.post('/api/verify-user', {
                 username: params.username,
                 verifyCode: data.code
             })
 
              console.log(response);
-            // if(!response.data.success){
-            //     toast({
-            //         title: "Verification Failed",
-            //         description: response.data.message,
-            //         variant: "destructive"
-            //     })
-            // }
+            if(!response.data.success){
+                toast({
+                    title: "Verification Failed",
+                    description: response.data.message,
+                    variant: "destructive"
+                })
+            }
 
             toast({
                 title: "Verifiaction Success",
                 description: response.data.message,
             })
-            router.replace('sign-in')
+            router.replace('/sign-in')
         } catch (error) {
             console.error("Error while verifying code ", error);
             const axiosError = error as AxiosError<ApiResponse>
@@ -84,7 +84,7 @@ const verifyCodePage = () => {
                     </FormItem>
                 )}
                 />
-                <Button type="submit">
+                <Button type="submit" disabled={isChecking}>
                     {
                         isChecking ? 
                             <>
