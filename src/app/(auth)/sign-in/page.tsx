@@ -31,7 +31,7 @@ const SignInPage = () => {
     })
 
     const onSubmit = async (data: z.infer <typeof  loginSchema>) => {
-        // setIsSubmitting(true)
+        setIsSubmitting(true)
         
         const result = await signIn('credentials', {
           redirect: false,
@@ -53,9 +53,11 @@ const SignInPage = () => {
               variant: 'destructive',
             });
           }
+          setIsSubmitting(false)
         }
     
         if (result?.url) {
+          setIsSubmitting(false)
           router.replace('/dashboard');
         }
     }
